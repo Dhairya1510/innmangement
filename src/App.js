@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
+import { useDispatch } from "react-redux";
+import { getHotels } from "./actions/hotels";
+
+import Homepage from "./Components/Homepage";
+import Hotelform from "./Components/Form/Form";
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getHotels());
+  }, [dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/form'>
+          <Hotelform />
+        </Route>
+        <Route path='/'>
+          <Homepage />
+        </Route>
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
